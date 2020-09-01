@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using PromotionEngine.Models;
 
 namespace PromotionEngine.CalculationEngine.Services
 {
     interface IPromotion
     {
+        Cart ApplyPromotion(Cart cart);
     }
 }
