@@ -2,7 +2,7 @@
 
 namespace PromotionEngine.CalculationEngine.Services
 {
-    interface IPromotion
+    public interface IPromotion
     {
         Cart ApplyPromotion(Cart cart);
     }
