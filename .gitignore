@@ -7,3 +7,5 @@
 /.vscode
 /PromotionEngine/.vscode
 /PromotionEngine.UnitTests/obj
+/PromotionEngine.UnitTests/bin/Debug/netcoreapp3.1
+/PromotionEngine/bin/Debug/netcoreapp3.1
