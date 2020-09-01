@@ -6,13 +6,13 @@ namespace PromotionEngine.Models
 {
     public class Item
     {
-        public Product Product { get; private set; }
-        public int Quantity { get; private set; }
-
         public Item(Product product, int quantity)
         {
-            Product = product;
+            Product = product ?? throw new ArgumentNullException(nameof(product));
             Quantity = quantity;
         }
+
+        public Product Product { get; private set; }
+        public int Quantity { get; private set; }
     }
 }
