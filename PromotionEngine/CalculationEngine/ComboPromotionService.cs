@@ -6,31 +6,30 @@ using System.Linq;
 
 namespace PromotionEngine.CalculationEngine
 {
-    public class ComboPromotion : IPromotion
+    public class ComboPromotionService : IPromotion
     {
-        public IEnumerable<Item> Items { get; private set; }
-        public decimal FlatPrice { get; private set; }
-        public ComboPromotion(IEnumerable<Item> item, decimal flatAmount)
+        public ComboPromotionService(ComboPromotion promotion)
         {
-            Items = item;
-            FlatPrice = flatAmount;
+            Promotion = promotion;
         }
+
+        public ComboPromotion Promotion { get; private set; }
 
         public Cart ApplyPromotion(Cart cart)
         {
             decimal total = default;
 
-            var items = cart.Items.Where(x => Items.Any(c => c.Product.SKU == x.Product.SKU)).ToList();
+            var items = cart.Items.Where(x => Promotion.ComboSku.Any(c => c == x.Product.SKU)).ToList();
 
-            var numberOfCombos = Items.Select(x => items.Count(i => i.Product.SKU == x.Product.SKU)).Min();
+            var numberOfCombos = Promotion.ComboSku.Select(x => items.Count(i => i.Product.SKU == x)).Min();
 
             if (numberOfCombos > 0)
             {
-                total = FlatPrice * numberOfCombos;
+                total = Promotion.FlatPrice * numberOfCombos;
 
                 var calculatedItems = new List<Item>();
 
-                foreach (var sku in Items.Select(x=>x.Product.SKU))
+                foreach (var sku in Promotion.ComboSku)
                 {
                     calculatedItems.AddRange(items.Where(x => x.Product.SKU == sku).Take(numberOfCombos));
                 }
