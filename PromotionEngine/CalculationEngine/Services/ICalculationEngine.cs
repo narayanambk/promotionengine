@@ -1,10 +1,10 @@
-﻿using System;
+﻿using PromotionEngine.Models;
 using System.Collections.Generic;
-using System.Text;
 
 namespace PromotionEngine.CalculationEngine.Services
 {
     interface ICalculationEngine
     {
+        decimal Calculate(IEnumerable<Item> items, IEnumerable<IPromotion> promotions);
     }
 }
