@@ -1,6 +1,7 @@
 ﻿using PromotionEngine.CalculationEngine.Services;
 using PromotionEngine.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PromotionEngine.CalculationEngine
 {
@@ -8,7 +9,15 @@ namespace PromotionEngine.CalculationEngine
     {
         public decimal Calculate(IEnumerable<Item> items, IEnumerable<IPromotion> promotions)
         {
-            throw new System.NotImplementedException();
+            var casherCart = new Cart(items.ToList());
+
+            foreach (var promotion in promotions)
+            {
+                casherCart = promotion.ApplyPromotion(casherCart);
+            }
+            var leftoverItemsCost = casherCart.Items.Any() ? casherCart.Items.Sum(x => x.Product.Price) : default;
+
+            return casherCart.Total + leftoverItemsCost;
         }
     }
 }
